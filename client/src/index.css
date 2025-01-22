@@ -6,8 +6,9 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Roboto", serif;
 }
 
 body {
-  background-color: #1d1e20;
+  background-color: #121315;
 }
