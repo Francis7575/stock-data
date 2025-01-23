@@ -1,18 +1,13 @@
-import { Route, Routes } from "react-router-dom";
-import Layout from "./components/Layout";
-import { Markets, More, Portfolio, Homepage, WatchListpage } from "./components";
+import { Suspense } from "react";
+import LoadingPage from "./pages/Loadingpage";
+import { RouterProvider } from "react-router-dom";
+import { PAGE_DATA } from "./utils/pageData";
 
 const App = () => {
   return (
-    <Routes>
-      <Route element={<Layout />}>
-        <Route path="/" element={<Homepage />} />
-        <Route path="/watchlist" element={<WatchListpage />} />
-        <Route path="/markets" element={<Markets />} />
-        <Route path="/portfolio" element={<Portfolio />} />
-        <Route path="/more" element={<More />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<LoadingPage />}>
+      <RouterProvider router={PAGE_DATA} />
+    </Suspense>
   );
 };
 

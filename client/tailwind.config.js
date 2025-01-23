@@ -8,12 +8,14 @@ export default {
     extend: {
       colors: {
         'gray': '#6a6b6d',
+        'watchlist-lyrics': '#7a7b7d',
         'menu-lyrics': '#5e5f61',
         'menu-bg': '#242527',
         'green': '#36c492',
+        'dark-green': 'rgb(49, 139, 86)',
         'medium-gray': '#8d8e90',
         'light-gray': '#e0e1e3',
-        'dark-gray': '#1d1e20',
+        'dark-gray': 'rgba(40, 41, 44)',
       }
     },
   },

@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { TickersType } from "../types/types";
-import { Loader, MoveLeft } from "lucide-react";
+import { TickersType } from "@/types/types";
+import { MoveLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { truncateText } from "../lib/utils";
+import { truncateText } from "@/lib/utils";
+import AllTickersSkeleton from "@/components/skeletons/AllTickersSkeleton";
 
 const WatchListpage = () => {
   const [tickerList, setTickerList] = useState<TickersType[]>([]);
@@ -30,25 +31,27 @@ const WatchListpage = () => {
   }, []);
 
   return (
-    <section className="p-6">
+    <section className="p-6 pb-12">
       <Link to="/" className="flex items-center gap-2 mb-4">
         <MoveLeft color="#8d8e90" />
         <h2 className="text-xl text-light-gray">All Watchlist</h2>
       </Link>
       {isLoading ? (
-        <div className="flex justify-center mt-20">
-          <Loader className="text-center size-12 text-emerald-500 animate-spin" />
-        </div>
+        <AllTickersSkeleton />
       ) : (
-        tickerList.map((ticker, idx) => (
-          <div key={idx} className="flex gap-2">
-            <span className="text-white">Img</span>
-            <div className="text-white flex flex-col max-w-[150px]">
-              <span>{ticker.ticker}</span>
-              <span>{truncateText(ticker.name, 20)}</span>
+        <div className="flex flex-col gap-3">
+          {tickerList.map((ticker, idx) => (
+            <div key={idx} className="flex gap-2">
+              <span className="text-white">Img</span>
+              <div className="text-white flex flex-col max-w-[190px]">
+                <span>{ticker.ticker}</span>
+                <span className="text-watchlist-lyrics">
+                  {truncateText(ticker.name, 20)}
+                </span>
+              </div>
             </div>
-          </div>
-        ))
+          ))}
+        </div>
       )}
     </section>
   );
