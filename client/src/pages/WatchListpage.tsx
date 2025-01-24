@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { TickersType } from "@/types/types";
 import { MoveLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { truncateText } from "@/lib/utils";
 import AllTickersSkeleton from "@/components/skeletons/AllTickersSkeleton";
 
 const WatchListpage = () => {
@@ -14,7 +13,7 @@ const WatchListpage = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/stock/all-tickers`
+          `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/tickers/all-tickers`
         );
         const jsonData = await response.json();
         if (!response.ok) {

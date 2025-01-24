@@ -20,7 +20,7 @@ const TickersList = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/stock/tickers`
+          `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/tickers/get-tickers`
         );
         const jsonData = await response.json();
         if (!response.ok) {

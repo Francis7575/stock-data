@@ -5,8 +5,9 @@ import { env } from "./config";
 import { IError } from "./types";
 import { errorHandler, requestLogger } from "./middleware";
 
-import stockRouter from "./router/stock.route";
-  
+import tickersRouter from "./router/tickers.route";
+import depositRouter from "./router/deposit.route"  
+
 const corsOption = {
   origin: [env.frontendUrl || "http://localhost:5173"],
   credentials: true,
@@ -22,7 +23,8 @@ app.use(cors(corsOption));
 
 app.use(requestLogger);
 
-app.use("/api/v1/stock", stockRouter);
+app.use("/api/v1/tickers", tickersRouter);
+app.use("/api/v1/deposit", depositRouter);
 
 app.get("/api", (_req: Request, res: Response) => {
   res.json({ message: "Server is running" });

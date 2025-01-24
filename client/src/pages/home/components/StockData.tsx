@@ -1,5 +1,5 @@
 import { CircleHelp, Eye, EyeOff, TrendingUp } from "lucide-react";
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import BuyingPower from "./BuyingPower";
 import {
@@ -8,35 +8,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { toast } from "react-toastify";
 
 const StockData = () => {
   const [eyeVisible, setEyeVisible] = useState<boolean>(true);
-  const [depositInput, setDepositInput] = useState<number>(0.0);
 
   const toggleEyeVisiblity = () => {
     setEyeVisible((prev) => !prev);
-  };
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    const response = await fetch(
-      `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/stock/add-deposit`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      }
-    );
-
-    if (response.ok) {
-      toast.success("Deposit added successfully!");
-    } else {
-      toast.error("Something went wrong!");
-    }
   };
 
   return (
@@ -77,7 +54,7 @@ const StockData = () => {
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
                   <p className="font-medium">
-                    Total Investment Change Percentage
+                    Total Investment Change Info
                   </p>
                 </TooltipContent>
               </Tooltip>

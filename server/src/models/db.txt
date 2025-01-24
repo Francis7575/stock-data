@@ -1,7 +1,11 @@
-CREATE TABLE stocks (
+CREATE TABLE investment (
     id SERIAL PRIMARY KEY,
     total_investing NUMERIC(15, 2) DEFAULT 0.00, 
     total_investing_amount NUMERIC(6, 2) DEFAULT 0.0,      
-    total_investing_percentage NUMERIC(1, 2) DEFAULT 0.00,      
+    total_investing_percentage NUMERIC(1, 2) DEFAULT 0.00
+);
+
+CREATE TABLE deposit (
+    id SERIAL PRIMARY KEY,
     buying_power NUMERIC(15, 2) DEFAULT 0.00      
 );

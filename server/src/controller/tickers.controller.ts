@@ -1,7 +1,6 @@
 import axios from "axios";
 import { NextFunction, Request, Response } from "express";
 import { env } from "../config";
-import pool from "../models/connection";
 
 export const getAllTickers = async (
   _req: Request,
@@ -73,31 +72,4 @@ export const getTickers = async (
   }
 };
 
-export const addDeposit = async (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  try {
-    // Extract deposit data from the request body
-    const { buying_power } = req.body;
 
-    if (buying_power === undefined || buying_power === null) {
-      res.status(400).send("Buying power is required.");
-      return;
-    }
-
-    if (buying_power <= 0) {
-      res.status(400).send("Buying power must be a positive number.");
-      return;
-    }
-
-    await pool.query(`INSERT INTO stocks (buying_power) VALUES ($1)`, [
-      buying_power,
-    ]);
-
-    res.status(201).send("Deposit added successfully");
-  } catch (error) {
-    next(error);
-  }
-};

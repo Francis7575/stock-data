@@ -14,12 +14,56 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useState } from "react";
 import { formatCurrency } from "@/lib/utils";
-
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
 
 const BuyingPower = () => {
   const [depositInput, setDepositInput] = useState<number>(0);
+  const [totalDeposit, setTotalDeposit] = useState<number>(0);
+
+  const fetchTotalDeposit = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/deposit/get-deposit`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch total deposit");
+      }
+      const data = await response.json();
+      setTotalDeposit(data.totalDeposit);
+    } catch (error) {
+      console.error("Error while fetching Total Deposit", error);
+    }
+  };
+
+  const handleAddDeposit = async (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/deposit/add-deposit`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          buying_power: depositInput,
+        }),
+      }
+    );
+    if (response.ok) {
+      toast.success("Deposit added successfully!");
+      setDepositInput(0);
+      fetchTotalDeposit();
+    } else {
+      toast.error("Something went wrong!");
+    }
+  };
+
+  useEffect(() => {
+    fetchTotalDeposit();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
@@ -51,11 +95,11 @@ const BuyingPower = () => {
             </Tooltip>
           </TooltipProvider>
         </div>
-        <AnimatedCounter amount={0} />
+        <AnimatedCounter amount={totalDeposit} />
       </div>
 
-      <Dialog >
-        <DialogTrigger asChild >
+      <Dialog>
+        <DialogTrigger asChild>
           <button
             className="text-white flex items-center gap-2 bg-second-dark-gray 
           hover:bg-dark-gray py-2 px-6 rounded-full"
@@ -80,7 +124,10 @@ const BuyingPower = () => {
               className="border-none outline-none max-w-[150px] text-center"
             />
           </div>
-          <button className="bg-red-500 hover:bg-red-400 text-white py-2 px-6 rounded-full">
+          <button
+            onClick={handleAddDeposit}
+            className="bg-red-500 hover:bg-red-400 text-white py-2 px-6 rounded-full"
+          >
             Deposit
           </button>
         </DialogContent>
