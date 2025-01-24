@@ -1,6 +1,11 @@
+export type IPricesType = {
+  high: number
+}
+
 export type TickersType = {
   ticker: string;
   name: string;
+  prices: IPricesType[];
 };
 
 export type IRouterType = {

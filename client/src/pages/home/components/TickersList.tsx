@@ -5,7 +5,8 @@ import TickerListSkeleton from "@/components/skeletons/TickerListSkeleton";
 import FirstTicker from "/image-agilent.jpeg";
 import SecondTicker from "/image-alcoa.png";
 import ThirdTicker from "/image-goldman.ico";
-import Fourthicker from "/image-ares.jpg";
+import Fourthicker from "/image-american-airlines.jpeg";
+import AnimatedCounter from "@/components/common/AnimatedCounter";
 
 const TickersList = () => {
   const [tickerList, setTickerList] = useState<TickersType[]>([]);
@@ -40,21 +41,33 @@ const TickersList = () => {
         <TickerListSkeleton />
       ) : (
         <div className="flex flex-col gap-3">
-          {tickerList.map((ticker, idx) => (
-            <div key={ticker.ticker} className="flex gap-2">
-              <img
-                src={images[idx]} // Link image based on index
-                alt={ticker.ticker}
-                className="size-10 object-cover rounded-full mr-2"
-              />
-              <div className="text-white flex flex-col max-w-[190px]">
-                <span>{ticker.ticker}</span>
-                <span className="text-watchlist-lyrics">
-                  {truncateText(ticker.name, 20)}
+          {tickerList.map((ticker, idx) => {
+            const highPrice =
+              ticker.prices?.[0]?.high !== undefined
+                ? ticker.prices[0].high
+                : "N/A";
+
+            return (
+              <div key={ticker.ticker} className="flex justify-between">
+                <div className="flex gap-2">
+                  <img
+                    src={images[idx]}
+                    alt={ticker.ticker}
+                    className="size-10 object-cover rounded-full mr-2"
+                  />
+                  <div className="text-white flex flex-col max-w-[190px]">
+                    <span>{ticker.ticker}</span>
+                    <span className="text-watchlist-lyrics">
+                      {truncateText(ticker.name, 20)}
+                    </span>
+                  </div>
+                </div>
+                <span className="text-white">
+                  <AnimatedCounter amount={highPrice} />
                 </span>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </section>
