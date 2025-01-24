@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { MoveRight, TrendingDown } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import TickersList from "./TickersList";
 
 const HomeWatchList = () => {

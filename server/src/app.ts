@@ -6,7 +6,7 @@ import { IError } from "./types";
 import { errorHandler, requestLogger } from "./middleware";
 
 import stockRouter from "./router/stock.route";
-
+  
 const corsOption = {
   origin: [env.frontendUrl || "http://localhost:5173"],
   credentials: true,

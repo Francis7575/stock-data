@@ -2,10 +2,16 @@ import { useEffect, useState } from "react";
 import { TickersType } from "@/types/types";
 import { truncateText } from "@/lib/utils";
 import TickerListSkeleton from "@/components/skeletons/TickerListSkeleton";
+import FirstTicker from "/image-agilent.jpeg";
+import SecondTicker from "/image-alcoa.png";
+import ThirdTicker from "/image-goldman.ico";
+import Fourthicker from "/image-ares.jpg";
 
 const TickersList = () => {
   const [tickerList, setTickerList] = useState<TickersType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const images = [FirstTicker, SecondTicker, ThirdTicker, Fourthicker];
 
   useEffect(() => {
     const fetchTickers = async () => {
@@ -34,9 +40,13 @@ const TickersList = () => {
         <TickerListSkeleton />
       ) : (
         <div className="flex flex-col gap-3">
-          {tickerList.map((ticker) => (
+          {tickerList.map((ticker, idx) => (
             <div key={ticker.ticker} className="flex gap-2">
-              <span className="text-white">Img</span>
+              <img
+                src={images[idx]} // Link image based on index
+                alt={ticker.ticker}
+                className="size-10 object-cover rounded-full mr-2"
+              />
               <div className="text-white flex flex-col max-w-[190px]">
                 <span>{ticker.ticker}</span>
                 <span className="text-watchlist-lyrics">

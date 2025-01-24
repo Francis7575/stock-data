@@ -46,7 +46,7 @@ const WatchListpage = () => {
               <div className="text-white flex flex-col max-w-[190px]">
                 <span>{ticker.ticker}</span>
                 <span className="text-watchlist-lyrics">
-                  {truncateText(ticker.name, 20)}
+                  {ticker.name}
                 </span>
               </div>
             </div>
