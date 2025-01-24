@@ -129,7 +129,7 @@ const BuyingPower = () => {
           </div>
           <button
             onClick={handleAddDeposit}
-            className="bg-red-500 hover:bg-red-400 text-white py-2 px-6 rounded-full"
+            className="mx-auto w-full bg-red-500 hover:bg-red-400 text-white py-2 px-6 rounded-full max-w-[180px]"
           >
             Deposit
           </button>

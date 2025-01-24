@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import pool from "../models/connection";
 
-export const TotalInvested = async (
+export const addTotalInvested = async (
   req: Request,
   res: Response,
   next: NextFunction
@@ -39,6 +39,26 @@ export const TotalInvested = async (
     res
       .status(201)
       .send("Investment added successfully and buying power updated. ");
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getTotalInvested = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const result = await pool.query(
+      "SELECT SUM(total_investing) AS total_invested FROM investment"
+    );
+
+    // If there's no deposit, return 0
+    const totalInvested = result.rows[0].total_invested || 0;
+
+    // Send the total deposit as a response
+    res.status(200).json({ totalInvested });
   } catch (error) {
     next(error);
   }

@@ -8,7 +8,7 @@ type PurchaseModalProps = {
 };
 
 const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
-  const {purchaseInput, setPurchaseInput} = useStocks()
+  const { purchaseInput, setPurchaseInput } = useStocks();
 
   const fetchTotalDeposit = async () => {
     try {
@@ -47,7 +47,9 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
 
   const handleAddInvestment = async () => {
     const response = await fetch(
-      `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/investment/total-invested`,
+      `${
+        import.meta.env.VITE_REACT_SERVER_URL
+      }/api/v1/investment/add-investment`,
       {
         method: "POST",
         headers: {
@@ -60,7 +62,7 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
     );
     if (response.ok) {
       setPurchaseInput(0);
-      await fetchTotalDeposit()
+      await fetchTotalDeposit();
       setIsModalOpen(false);
       toast.success("Investment added successfully!");
     } else {
@@ -81,9 +83,9 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
         onClick={handleModalClick}
         className="bg-white py-4 px-4 rounded-md max-w-[300px]"
       >
-        <h1 className="font-semibold text-center">Invest In Stocks</h1>
+        <h1 className="font-semibold text-center text-[1.12rem]">Invest In Stocks</h1>
         <p className="text-center">
-          Enter the amount you want to invest in stocks
+          Enter the amount you wish to invest in stocks
         </p>
         <div className="flex justify-center mt-4">
           <input
@@ -94,10 +96,11 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
             className="border-none outline-none max-w-[150px] text-center"
           />
         </div>
+        <p className="mt-1 text-center text-gray">This is your buying power</p>
         <div className="flex justify-center mt-4">
           <button
             onClick={handleAddInvestment}
-            className="bg-red-500 hover:bg-red-400 min-w-[140px] text-white py-2 px-6 rounded-full"
+            className="bg-red-500 hover:bg-red-400 min-w-[180px] text-white py-2 px-6 rounded-full"
           >
             Buy
           </button>

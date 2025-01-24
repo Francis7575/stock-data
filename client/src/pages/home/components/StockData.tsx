@@ -1,5 +1,5 @@
 import { CircleHelp, Eye, EyeOff, TrendingUp } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import BuyingPower from "./BuyingPower";
 import {
@@ -8,13 +8,37 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { useStocks } from "@/context/StocksContext";
 
 const StockData = () => {
   const [eyeVisible, setEyeVisible] = useState<boolean>(true);
+  const [totalInvested, setTotalInvested] = useState<number>(0);
+  const { purchaseInput, setPurchaseInput } = useStocks();
 
   const toggleEyeVisiblity = () => {
     setEyeVisible((prev) => !prev);
   };
+
+  const fetchTotalInvested = async () => {
+    try {
+      const response = await fetch(
+        `${
+          import.meta.env.VITE_REACT_SERVER_URL
+        }/api/v1/investment/get-total-invested`
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch total deposit");
+      }
+      const data = await response.json();
+      setTotalInvested(data.totalInvested);
+    } catch (error) {
+      console.error("Error while fetching Total Deposit", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchTotalInvested();
+  }, [purchaseInput]);
 
   return (
     <>
@@ -27,7 +51,7 @@ const StockData = () => {
             <div className="text-[1.8rem] text-white">
               {eyeVisible ? (
                 <span>
-                  <AnimatedCounter amount={0} />
+                  <AnimatedCounter amount={totalInvested} />
                 </span>
               ) : (
                 <span>******</span>
@@ -53,9 +77,7 @@ const StockData = () => {
                   <CircleHelp color="#8d8e90" size={18} />
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p className="font-medium">
-                    Total Investment Change Info
-                  </p>
+                  <p className="font-medium">Total Investment Change Info</p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>

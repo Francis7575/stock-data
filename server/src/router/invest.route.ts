@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { TotalInvested } from "../controller/invest.controller";
+import { addTotalInvested, getTotalInvested } from "../controller/invest.controller";
 
 const router = Router();
 
-router.post('/total-invested', TotalInvested)
+router.post('/add-investment', addTotalInvested)
+router.get('/get-total-invested', getTotalInvested)
 
 export default router;

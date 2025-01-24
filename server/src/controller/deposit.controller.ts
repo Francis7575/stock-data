@@ -25,7 +25,7 @@ export const addDeposit = async (
   }
 };
 
-export const getDepositTotal = async (
+export const getTotalDeposit = async (
   req: Request,
   res: Response,
   next: NextFunction
