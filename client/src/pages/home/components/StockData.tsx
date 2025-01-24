@@ -1,5 +1,5 @@
 import { CircleHelp, Eye, EyeOff, TrendingUp } from "lucide-react";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import BuyingPower from "./BuyingPower";
 import {
@@ -8,12 +8,35 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { toast } from "react-toastify";
 
 const StockData = () => {
   const [eyeVisible, setEyeVisible] = useState<boolean>(true);
+  const [depositInput, setDepositInput] = useState<number>(0.0);
 
   const toggleEyeVisiblity = () => {
     setEyeVisible((prev) => !prev);
+  };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/stock/add-deposit`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      }
+    );
+
+    if (response.ok) {
+      toast.success("Deposit added successfully!");
+    } else {
+      toast.error("Something went wrong!");
+    }
   };
 
   return (
@@ -27,7 +50,7 @@ const StockData = () => {
             <div className="text-[1.8rem] text-white">
               {eyeVisible ? (
                 <span>
-                  <AnimatedCounter amount={5000} />
+                  <AnimatedCounter amount={0} />
                 </span>
               ) : (
                 <span>******</span>
@@ -46,14 +69,16 @@ const StockData = () => {
           </div>
           <div className="flex items-center gap-2">
             <TrendingUp color="rgb(49, 139, 86)" className="size-6" />
-            <span className="text-dark-green">+32.5 (0.48%)</span>
+            <span className="text-dark-green">0</span>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
                   <CircleHelp color="#8d8e90" size={18} />
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
-                  <p className="font-medium">Total Investment Change Percentage</p>
+                  <p className="font-medium">
+                    Total Investment Change Percentage
+                  </p>
                 </TooltipContent>
               </Tooltip>
             </TooltipProvider>
