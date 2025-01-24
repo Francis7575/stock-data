@@ -14,6 +14,8 @@ export default {
   			'menu-bg': '#242527',
   			green: '#36c492',
   			'dark-green': 'rgb(49, 139, 86)',
+			'second-dark-green': 'rgb(59, 125, 81)',
+			'dark-red': 'rgb(84, 15, 19)',
   			'medium-gray': '#8d8e90',
   			'light-gray': '#e0e1e3',
   			'dark-gray': 'rgba(40, 41, 44)',
