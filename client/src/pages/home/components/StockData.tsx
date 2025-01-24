@@ -13,7 +13,7 @@ import { useStocks } from "@/context/StocksContext";
 const StockData = () => {
   const [eyeVisible, setEyeVisible] = useState<boolean>(true);
   const [totalInvested, setTotalInvested] = useState<number>(0);
-  const { purchaseInput, setPurchaseInput } = useStocks();
+  const { purchaseInput } = useStocks();
 
   const toggleEyeVisiblity = () => {
     setEyeVisible((prev) => !prev);
@@ -70,7 +70,9 @@ const StockData = () => {
           </div>
           <div className="flex items-center gap-2">
             <TrendingUp color="rgb(49, 139, 86)" className="size-6" />
-            <span className="text-dark-green">0</span>
+            <span className="text-dark-green">
+              <span className="text-dark-green">0</span>
+            </span>
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>

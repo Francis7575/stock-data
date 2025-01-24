@@ -114,7 +114,7 @@ const BuyingPower = () => {
         <DialogContent className="max-w-[300px] ">
           <DialogHeader className="mt-4">
             <DialogTitle>Account Deposit</DialogTitle>
-            <DialogDescription className="text-[1.12rem]">
+            <DialogDescription>
               Enter the amount you wish to deposit
             </DialogDescription>
           </DialogHeader>

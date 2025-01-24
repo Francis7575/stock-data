@@ -1,13 +1,15 @@
 import { useStocks } from "@/context/StocksContext";
 import { formatCurrency } from "@/lib/utils";
+import { TickersType } from "@/types/types";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 type PurchaseModalProps = {
   setIsModalOpen: (value: boolean) => void;
+  selectedTicker: TickersType[];
 };
 
-const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
+const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) => {
   const { purchaseInput, setPurchaseInput } = useStocks();
 
   const fetchTotalDeposit = async () => {
@@ -83,10 +85,28 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
         onClick={handleModalClick}
         className="bg-white py-4 px-4 rounded-md max-w-[300px]"
       >
-        <h1 className="font-semibold text-center text-[1.12rem]">Invest In Stocks</h1>
-        <p className="text-center">
-          Enter the amount you wish to invest in stocks
+        <div className="font-semibold text-lg flex items-center justify-center">
+          <h2>Invest In Stocks </h2>
+          <span className="ml-1">📊</span>
+        </div>
+        <p className="text-center text-gray">
+          Enter the amount you wish to invest 
         </p>
+
+        <div className="mt-4">
+          <h2 className="text-center text-lg font-semibold text-[1.09rem]">Ticker Selected</h2>
+          <div className="space-y-2 mt-2">
+            {selectedTicker ? (
+              <div className="flex justify-between items-center">
+                <span>{selectedTicker[0]?.ticker}</span>
+                <span>{formatCurrency(selectedTicker[0]?.prices[0].high)}</span>
+              </div>
+            ) : (
+              <p>No ticker selected</p>
+            )}
+          </div>
+        </div>
+
         <div className="flex justify-center mt-4">
           <input
             type="text"

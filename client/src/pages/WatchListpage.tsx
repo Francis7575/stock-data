@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { TickersType } from "@/types/types";
 import { MoveLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import AllTickersSkeleton from "@/components/skeletons/AllTickersSkeleton";
+import { useStocks } from "@/context/StocksContext";
 
 const WatchListpage = () => {
-  const [tickerList, setTickerList] = useState<TickersType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { tickerList, setTickerList } = useStocks();
 
   useEffect(() => {
     const fetchAllTickers = async () => {
