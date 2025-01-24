@@ -1,12 +1,14 @@
+import { useStocks } from "@/context/StocksContext";
 import { formatCurrency } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 type PurchaseModalProps = {
   setIsModalOpen: (value: boolean) => void;
 };
 
 const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
-  const [purchaseInput, setPurchaseInput] = useState<number>(0);
+  const {purchaseInput, setPurchaseInput} = useStocks()
 
   const fetchTotalDeposit = async () => {
     try {
@@ -43,6 +45,29 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
     }
   };
 
+  const handleAddInvestment = async () => {
+    const response = await fetch(
+      `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/investment/total-invested`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          total_investing: purchaseInput,
+        }),
+      }
+    );
+    if (response.ok) {
+      setPurchaseInput(0);
+      await fetchTotalDeposit()
+      setIsModalOpen(false);
+      toast.success("Investment added successfully!");
+    } else {
+      toast.error("Something went wrong!");
+    }
+  };
+
   useEffect(() => {
     fetchTotalDeposit();
   }, []);
@@ -70,7 +95,10 @@ const PurchaseModal = ({ setIsModalOpen }: PurchaseModalProps) => {
           />
         </div>
         <div className="flex justify-center mt-4">
-          <button className="bg-red-500 hover:bg-red-400 min-w-[140px] text-white py-2 px-6 rounded-full">
+          <button
+            onClick={handleAddInvestment}
+            className="bg-red-500 hover:bg-red-400 min-w-[140px] text-white py-2 px-6 rounded-full"
+          >
             Buy
           </button>
         </div>

@@ -111,7 +111,7 @@ const TickersList = () => {
           })}
         </div>
       )}
-      {isModalOpen && <PurchaseModal setIsModalOpen={setIsModalOpen}/>}
+      {isModalOpen && <PurchaseModal setIsModalOpen={setIsModalOpen} />}
     </section>
   );
 };

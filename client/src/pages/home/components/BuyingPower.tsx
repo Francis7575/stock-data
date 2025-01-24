@@ -17,11 +17,13 @@ import {
 import { formatCurrency } from "@/lib/utils";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
+import { useStocks } from "@/context/StocksContext";
 
 const BuyingPower = () => {
   const [depositInput, setDepositInput] = useState<number>(0);
   const [totalDeposit, setTotalDeposit] = useState<number>(0);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+  const {purchaseInput, setPurchaseInput} = useStocks()
 
   const fetchTotalDeposit = async () => {
     try {
@@ -38,8 +40,7 @@ const BuyingPower = () => {
     }
   };
 
-  const handleAddDeposit = async (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault();
+  const handleAddDeposit = async () => {
 
     const response = await fetch(
       `${import.meta.env.VITE_REACT_SERVER_URL}/api/v1/deposit/add-deposit`,
@@ -54,10 +55,10 @@ const BuyingPower = () => {
       }
     );
     if (response.ok) {
-      toast.success("Deposit added successfully!");
       setDepositInput(0);
-      fetchTotalDeposit();
+      await fetchTotalDeposit();
       setIsDialogOpen(false);
+      toast.success("Deposit added successfully!");
     } else {
       toast.error("Something went wrong!");
     }
@@ -65,7 +66,7 @@ const BuyingPower = () => {
 
   useEffect(() => {
     fetchTotalDeposit();
-  }, []);
+  }, [purchaseInput]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     let value = e.target.value;
