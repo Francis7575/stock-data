@@ -21,6 +21,7 @@ import { useEffect, useState } from "react";
 const BuyingPower = () => {
   const [depositInput, setDepositInput] = useState<number>(0);
   const [totalDeposit, setTotalDeposit] = useState<number>(0);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   const fetchTotalDeposit = async () => {
     try {
@@ -56,6 +57,7 @@ const BuyingPower = () => {
       toast.success("Deposit added successfully!");
       setDepositInput(0);
       fetchTotalDeposit();
+      setIsDialogOpen(false);
     } else {
       toast.error("Something went wrong!");
     }
@@ -98,7 +100,7 @@ const BuyingPower = () => {
         <AnimatedCounter amount={totalDeposit} />
       </div>
 
-      <Dialog>
+      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogTrigger asChild>
           <button
             className="text-white flex items-center gap-2 bg-second-dark-gray 

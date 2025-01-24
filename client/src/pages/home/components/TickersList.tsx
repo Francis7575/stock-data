@@ -8,10 +8,12 @@ import ThirdTicker from "/image-goldman.ico";
 import Fourthicker from "/image-american-airlines.jpeg";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import { TrendingDown, TrendingUp } from "lucide-react";
+import PurchaseModal from "./PurchaseModal";
 
 const TickersList = () => {
   const [tickerList, setTickerList] = useState<TickersType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const images = [FirstTicker, SecondTicker, ThirdTicker, Fourthicker];
 
@@ -35,6 +37,10 @@ const TickersList = () => {
     };
     fetchTickers();
   }, []);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
 
   return (
     <section>
@@ -61,7 +67,11 @@ const TickersList = () => {
             }
 
             return (
-              <div key={ticker.ticker} className="flex justify-between">
+              <div
+                onClick={handleOpenModal}
+                key={ticker.ticker}
+                className="flex justify-between"
+              >
                 <div className="flex gap-2">
                   <img
                     src={images[idx]}
@@ -101,6 +111,7 @@ const TickersList = () => {
           })}
         </div>
       )}
+      {isModalOpen && <PurchaseModal setIsModalOpen={setIsModalOpen}/>}
     </section>
   );
 };

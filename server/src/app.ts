@@ -7,6 +7,7 @@ import { errorHandler, requestLogger } from "./middleware";
 
 import tickersRouter from "./router/tickers.route";
 import depositRouter from "./router/deposit.route"  
+import investRouter from "./router/invest.route"
 
 const corsOption = {
   origin: [env.frontendUrl || "http://localhost:5173"],
@@ -25,6 +26,7 @@ app.use(requestLogger);
 
 app.use("/api/v1/tickers", tickersRouter);
 app.use("/api/v1/deposit", depositRouter);
+app.use("/api/v1/investment", investRouter);
 
 app.get("/api", (_req: Request, res: Response) => {
   res.json({ message: "Server is running" });
