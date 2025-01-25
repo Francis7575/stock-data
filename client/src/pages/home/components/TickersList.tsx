@@ -8,14 +8,13 @@ import Fourthicker from "/image-american-airlines.jpeg";
 import AnimatedCounter from "@/components/common/AnimatedCounter";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import PurchaseModal from "./PurchaseModal";
-import { useStocks } from "@/context/StocksContext";
 import { TickersType } from "@/types/types";
 
 const TickersList = () => {
+  const [tickerList, setTickerList] = useState<TickersType[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [selectedTicker, setSelectedTicker] = useState<TickersType[]>([]);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { tickerList, setTickerList } = useStocks();
 
   const images = [FirstTicker, SecondTicker, ThirdTicker, Fourthicker];
 

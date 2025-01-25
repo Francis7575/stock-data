@@ -1,24 +1,18 @@
-import { TickersType } from "@/types/types";
 import { createContext, useState, useContext, ReactNode } from "react";
 
 type StockContextProps = {
   purchaseInput: number;
   setPurchaseInput: (value: number) => void;
-  tickerList: TickersType[]
-  setTickerList: (value: TickersType[]) => void
 };
 
 const StocksContext = createContext<StockContextProps | undefined>(undefined);
 
 export const StocksProvider = ({ children }: { children: ReactNode }) => {
   const [purchaseInput, setPurchaseInput] = useState<number>(0);
-  const [tickerList, setTickerList] = useState<TickersType[]>([]);
 
   const value = {
     purchaseInput,
     setPurchaseInput,
-    tickerList,
-    setTickerList
   };
   return (
     <StocksContext.Provider value={value}>{children}</StocksContext.Provider>
