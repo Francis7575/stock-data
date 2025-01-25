@@ -1,9 +1,11 @@
-import React from 'react'
+import ComingSoon from "@/components/common/ComingSoon";
 
 const Portfolio = () => {
   return (
-    <div className='text-white'>Portfolio</div>
-  )
-}
+    <>
+      <ComingSoon />
+    </>
+  );
+};
 
-export default Portfolio
+export default Portfolio;

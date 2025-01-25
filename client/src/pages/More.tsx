@@ -1,8 +1,10 @@
-import React from 'react'
+import ComingSoon from "@/components/common/ComingSoon"
 
 const More = () => {
   return (
-    <div className='text-white'>More</div>
+    <>
+      <ComingSoon />
+    </>
   )
 }
 

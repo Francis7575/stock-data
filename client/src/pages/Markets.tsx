@@ -1,7 +1,10 @@
+import ComingSoon from "@/components/common/ComingSoon"
 
 const Markets = () => {
   return (
-    <div className='text-white'>Markets</div>
+    < >
+      <ComingSoon />
+    </>
   )
 }
 

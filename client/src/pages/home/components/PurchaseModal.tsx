@@ -1,7 +1,7 @@
 import { useStocks } from "@/context/StocksContext";
 import { formatCurrency } from "@/lib/utils";
 import { TickersType } from "@/types/types";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 type PurchaseModalProps = {
@@ -9,8 +9,12 @@ type PurchaseModalProps = {
   selectedTicker: TickersType[];
 };
 
-const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) => {
+const PurchaseModal = ({
+  setIsModalOpen,
+  selectedTicker,
+}: PurchaseModalProps) => {
   const { purchaseInput, setPurchaseInput } = useStocks();
+  const [isInsufficientFunds, setIsInsufficientFunds] =useState<boolean>(false);
 
   const fetchTotalDeposit = async () => {
     try {
@@ -21,7 +25,7 @@ const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) =
         throw new Error("Failed to fetch total deposit");
       }
       const data = await response.json();
-      setPurchaseInput(data.totalDeposit);
+      setPurchaseInput(data.total_deposit);
     } catch (error) {
       console.error("Error while fetching Total Deposit", error);
     }
@@ -48,11 +52,17 @@ const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) =
   };
 
   const handleAddInvestment = async () => {
+    if (purchaseInput < selectedTicker[0]?.prices[0]?.high) {
+      setIsInsufficientFunds(true);
+      toast.error("You don't have enough funds to buy this stock.");
+      return;
+    }
+
+    setIsInsufficientFunds(false);
+
     const response = await fetch(
       `${
-        import.meta.env.VITE_REACT_SERVER_URL
-      }/api/v1/investment/add-investment`,
-      {
+        import.meta.env.VITE_REACT_SERVER_URL}/api/v1/investment/add-investment`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -62,6 +72,7 @@ const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) =
         }),
       }
     );
+
     if (response.ok) {
       setPurchaseInput(0);
       await fetchTotalDeposit();
@@ -90,11 +101,13 @@ const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) =
           <span className="ml-1">📊</span>
         </div>
         <p className="text-center text-gray">
-          Enter the amount you wish to invest 
+          Enter the amount you wish to invest
         </p>
 
         <div className="mt-4">
-          <h2 className="text-center text-lg font-semibold text-[1.09rem]">Ticker Selected</h2>
+          <h2 className="text-center text-lg font-semibold text-[1.09rem]">
+            Ticker Selected
+          </h2>
           <div className="space-y-2 mt-2">
             {selectedTicker ? (
               <div className="flex justify-between items-center">
@@ -120,7 +133,12 @@ const PurchaseModal = ({ setIsModalOpen, selectedTicker }: PurchaseModalProps) =
         <div className="flex justify-center mt-4">
           <button
             onClick={handleAddInvestment}
-            className="bg-red-500 hover:bg-red-400 min-w-[180px] text-white py-2 px-6 rounded-full"
+            className={`bg-red-500 hover:bg-red-400 min-w-[180px] text-white py-2 px-6 rounded-full ${
+              purchaseInput < selectedTicker[0]?.prices[0]?.high
+                ? "cursor-not-allowed opacity-50"
+                : ""
+            }`}
+            disabled={purchaseInput < selectedTicker[0]?.prices[0]?.high}
           >
             Buy
           </button>

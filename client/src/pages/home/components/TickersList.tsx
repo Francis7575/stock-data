@@ -73,7 +73,7 @@ const TickersList = () => {
               <div
                 onClick={() => handleOpenModal(ticker)}
                 key={ticker.ticker}
-                className="flex justify-between"
+                className="flex justify-between cursor-pointer bg-dark-gray hover:bg-dark-gray-opc-70 p-1 md:p-4"
               >
                 <div className="flex gap-2">
                   <img
@@ -90,7 +90,7 @@ const TickersList = () => {
                 </div>
                 <div className="flex flex-col gap-1">
                   <span className="self-end">
-                    <AnimatedCounter amount={ticker.prices[0].high} />
+                    <AnimatedCounter amount={ticker.prices?.[0]?.high ?? 0} />
                   </span>
                   <div className="flex items-center gap-1">
                     {percentageChange.includes("-") ? (

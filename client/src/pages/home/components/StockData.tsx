@@ -71,7 +71,7 @@ const StockData = () => {
           <div className="flex items-center gap-2">
             <TrendingUp color="rgb(49, 139, 86)" className="size-6" />
             <span className="text-dark-green">
-              <span className="text-dark-green">0</span>
+              <span className="text-dark-green">100%</span>
             </span>
             <TooltipProvider>
               <Tooltip>

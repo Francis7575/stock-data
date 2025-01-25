@@ -33,7 +33,7 @@ export const getTickers = async (
   try {
     // Fetch ticker info
     const getTickerInfo = await axios.get(
-      `https://api.polygon.io/v3/reference/tickers?market=stocks&active=true&limit=100&apiKey=${env.apiKey}`
+      `https://api.polygon.io/v3/reference/tickers?market=stocks&active=true&limit=50&apiKey=${env.apiKey}`
     );
 
     const tickerInfoResults = getTickerInfo.data.results || [];

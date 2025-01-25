@@ -23,7 +23,7 @@ const BuyingPower = () => {
   const [depositInput, setDepositInput] = useState<number>(0);
   const [totalDeposit, setTotalDeposit] = useState<number>(0);
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const {purchaseInput, setPurchaseInput} = useStocks()
+  const {purchaseInput} = useStocks()
 
   const fetchTotalDeposit = async () => {
     try {
@@ -34,7 +34,7 @@ const BuyingPower = () => {
         throw new Error("Failed to fetch total deposit");
       }
       const data = await response.json();
-      setTotalDeposit(data.totalDeposit);
+      setTotalDeposit(data.total_deposit);
     } catch (error) {
       console.error("Error while fetching Total Deposit", error);
     }

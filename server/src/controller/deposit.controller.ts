@@ -38,8 +38,7 @@ export const getTotalDeposit = async (
     // If there's no deposit, return 0
     const totalDeposit = result.rows[0].total_deposit || 0;
 
-    // Send the total deposit as a response
-    res.status(200).json({ totalDeposit });
+    res.status(200).json({ total_deposit: totalDeposit });
   } catch (error) {
     next(error);
   }

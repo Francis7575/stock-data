@@ -32,13 +32,15 @@ export const addTotalInvested = async (
       -total_investing,
     ]);
 
-    await pool.query(`INSERT INTO investment (total_investing) VALUES ($1)`, [
-      total_investing,
-    ]);
+    await pool.query(
+      `INSERT INTO investment (total_investing) 
+      VALUES ($1)`,
+      [total_investing]
+    );
 
-    res
-      .status(201)
-      .send("Investment added successfully and buying power updated. ");
+    res.status(201).json({
+      message: "Investment added successfully and buying power updated.",
+    });
   } catch (error) {
     next(error);
   }

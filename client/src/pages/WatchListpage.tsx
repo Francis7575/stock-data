@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
+import { TickersType } from "@/types/types";
 import { MoveLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import AllTickersSkeleton from "@/components/skeletons/AllTickersSkeleton";
-import { useStocks } from "@/context/StocksContext";
+import { truncateText } from "@/lib/utils";
 
 const WatchListpage = () => {
+  const [tickerList, setTickerList] = useState<TickersType[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { tickerList, setTickerList } = useStocks();
 
   useEffect(() => {
     const fetchAllTickers = async () => {
@@ -45,7 +46,7 @@ const WatchListpage = () => {
               <div className="text-white flex flex-col max-w-[190px]">
                 <span>{ticker.ticker}</span>
                 <span className="text-watchlist-lyrics">
-                  {ticker.name}
+                  {truncateText(ticker.name, 15)}
                 </span>
               </div>
             </div>
