@@ -14,7 +14,6 @@ const PurchaseModal = ({
   selectedTicker,
 }: PurchaseModalProps) => {
   const { purchaseInput, setPurchaseInput } = useStocks();
-  const [isInsufficientFunds, setIsInsufficientFunds] =useState<boolean>(false);
 
   const fetchTotalDeposit = async () => {
     try {
@@ -52,13 +51,6 @@ const PurchaseModal = ({
   };
 
   const handleAddInvestment = async () => {
-    if (purchaseInput < selectedTicker[0]?.prices[0]?.high) {
-      setIsInsufficientFunds(true);
-      toast.error("You don't have enough funds to buy this stock.");
-      return;
-    }
-
-    setIsInsufficientFunds(false);
 
     const response = await fetch(
       `${
