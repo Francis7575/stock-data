@@ -81,7 +81,7 @@ const BuyingPower = () => {
   };
 
   return (
-    <section className="mt-6 flex items-center justify-between px-5 mb-6">
+    <section className="my-4 flex items-center justify-between px-5">
       <div>
         <div className="flex items-center gap-2">
           <h2 className="text-gray text-sm">BUYING POWER</h2>

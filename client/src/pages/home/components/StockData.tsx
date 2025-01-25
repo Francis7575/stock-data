@@ -42,8 +42,8 @@ const StockData = () => {
 
   return (
     <>
-      <section className="mt-8 pl-5 border-b border-dark-gray">
-        <div className="pb-6">
+      <section className="mt-5 pl-5 border-b border-dark-gray">
+        <div className="pb-5">
           <h1 className="text-gray text-sm font-semibold mb-1">
             TOTAL INVESTING
           </h1>
