@@ -1,0 +1,18 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+      "module": "ESNext",
+      "moduleResolution": "node",
+      "esModuleInterop": true,
+      "skipLibCheck": true,
+      "target": "ESNext"
+    },
+    "ts-node": {
+      "transpileOnly": true,
+      "compilerOptions": {
+        "module": "ESNext"
+      },
+      "experimentalSpecifierResolution": "node"  // Allows ES module resolution
+    },
+    "include": ["./src/migrations/**/*.ts"],
+  }
