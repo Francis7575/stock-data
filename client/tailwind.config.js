@@ -19,6 +19,7 @@ export default {
   			'medium-gray': '#8d8e90',
   			'light-gray': '#e0e1e3',
   			'dark-gray': 'rgba(40, 41, 44)',
+			'lightgreen': '#90ee90',
   			'dark-gray-opc-70': '#3C3E42',
   			'second-dark-gray': '#191a1c',
   			background: 'hsl(var(--background))',

@@ -76,7 +76,7 @@ const StockData = () => {
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger>
-                  <CircleHelp color="#8d8e90" size={18} />
+                  <CircleHelp className="fill-current hover:text-menu-lyrics"  color="#8d8e90" size={18} />
                 </TooltipTrigger>
                 <TooltipContent side="bottom">
                   <p className="font-medium">Total Investment Change Info</p>
