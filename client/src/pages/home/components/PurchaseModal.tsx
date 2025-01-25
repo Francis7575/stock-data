@@ -1,7 +1,7 @@
 import { useStocks } from "@/context/StocksContext";
 import { formatCurrency } from "@/lib/utils";
 import { TickersType } from "@/types/types";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 type PurchaseModalProps = {
